@@ -23,7 +23,7 @@ public class BookService {
     }
 
     public List<Book> getAllBooks(){
-        Sort sort = Sort.by("genre").ascending()
+        Sort sort = Sort.by("author").ascending()
                 .and(Sort.by("yearOfPublication").ascending());
 
         return bookRepository.findAll(sort);
@@ -37,16 +37,14 @@ public class BookService {
         return bookRepository.findBooksByYear(year);
     }
 
-    public List<Book> getBooksByGenre(String genre){
-        return bookRepository.findBooksByGenre(genre);
-    }
+
 
     public List<Book> getBooksByAuthor(String author){
         return bookRepository.findBooksByAuthor(author);
     }
 
-    public Book getBookByTitle(String title){
-        return bookRepository.findBookByTitle(title);
+    public List<Book> getBookByTitle(String title){
+        return bookRepository.findBooksByTitle(title);
     }
 
     public Optional<Book> checkIfBookExists(UUID id){

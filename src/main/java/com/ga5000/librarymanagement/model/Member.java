@@ -1,8 +1,6 @@
 package com.ga5000.librarymanagement.model;
 
-import com.ga5000.librarymanagement.security.UserRole;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -20,9 +18,6 @@ public class Member {
 
     @Column(nullable = false, length = 50)
     private String lastName;
-
-    @Column(nullable = false,length = 255)
-    private String password;
 
     @Column(nullable = false)
     private Date dateOfBirth;
@@ -42,11 +37,27 @@ public class Member {
     @Column(nullable = false, length = 20)
     private String membershipStatus;
 
-    @Column(nullable = false)
-    private UserRole role;
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
+    private User user;
 
     @OneToMany(mappedBy = "member")
     private List<Transaction> transactions;
+
+    public Member() {
+    }
+
+    public Member(String firstName, String lastName, Date dateOfBirth, String address, String phoneNumber, String email, Date membershipDate, String membershipStatus, User user) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.membershipDate = membershipDate;
+        this.membershipStatus = membershipStatus;
+        this.user = user;
+    }
 
     public UUID getMemberId() {
         return memberId;
@@ -70,14 +81,6 @@ public class Member {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Date getDateOfBirth() {
@@ -128,19 +131,15 @@ public class Member {
         this.membershipStatus = membershipStatus;
     }
 
-    public UserRole getRole() {
-        return role;
+    public User getUser() {
+        return user;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Transaction> getTransactions() {
         return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
     }
 }

@@ -19,7 +19,7 @@ public class Book {
     private String author;
 
     @Column(nullable = false, unique = true, length = 255)
-    private  String ISBN;
+    private String ISBN;
 
     @Column(length = 255)
     private String publisher;
@@ -28,7 +28,7 @@ public class Book {
     private int yearOfPublication;
 
     @Column(length = 50)
-    private String genre;
+    private List<String> genres;
 
     @Column(nullable = false)
     private int totalCopies;
@@ -42,6 +42,23 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<BookCategory> bookCategories;
 
+    public Book(){}
+
+    public Book(String ISBN, UUID bookId, String title, String author, String publisher,
+                int yearOfPublication, List<String> genres, int totalCopies, int availableCopies,
+                List<Transaction> transactions, List<BookCategory> bookCategories) {
+        this.ISBN = ISBN;
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearOfPublication = yearOfPublication;
+        this.genres = genres;
+        this.totalCopies = totalCopies;
+        this.availableCopies = availableCopies;
+        this.transactions = transactions;
+        this.bookCategories = bookCategories;
+    }
 
     public UUID getBookId() {
         return bookId;
@@ -71,10 +88,6 @@ public class Book {
         return ISBN;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
     public String getPublisher() {
         return publisher;
     }
@@ -91,12 +104,12 @@ public class Book {
         this.yearOfPublication = yearOfPublication;
     }
 
-    public String getGenre() {
-        return genre;
+    public List<String> getGenres() {
+        return genres;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 
     public int getTotalCopies() {
