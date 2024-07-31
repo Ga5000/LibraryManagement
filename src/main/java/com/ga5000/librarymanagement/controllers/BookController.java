@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@RestController("/books")
+@RestController
+@RequestMapping("/books")
 public class BookController {
 
     private final BookService bookService;
@@ -54,7 +55,7 @@ public class BookController {
     }
 
     @PutMapping("/edit/{bookId}")
-    public ResponseEntity<Object> updateBook(@PathVariable @Valid UUID bookId, @RequestBody @Valid BookUpdateRequestDTO bookUpdateRequestDTO){
+    public ResponseEntity<Object> updateBook(@PathVariable("id") @Valid UUID bookId, @RequestBody @Valid BookUpdateRequestDTO bookUpdateRequestDTO){
         Optional<Book> bookToUpdate = bookService.checkIfBookExists(bookId);
         if(bookToUpdate.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");

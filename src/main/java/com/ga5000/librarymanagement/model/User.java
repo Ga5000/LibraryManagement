@@ -3,28 +3,28 @@ package com.ga5000.librarymanagement.model;
 import com.ga5000.librarymanagement.security.UserRole;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User {
-    
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userId;
-    
+
     @Column(nullable = false, length = 60)
     private String username;
-    
+
     @Column(nullable = false, length = 255)
     private String password;
 
     @Column(nullable = false)
     private UserRole role;
 
-    @OneToOne
-    @JoinColumn(name = "member_id", referencedColumnName = "memberId")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Member memberAccount;
-
 
     public User(){}
 

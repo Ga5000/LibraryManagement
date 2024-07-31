@@ -18,4 +18,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     @Query("SELECT b FROM Book b WHERE b.title = :title")
     List<Book> findBooksByTitle(String title);
+
+    @Query("SELECT b FROM Book b WHERE b.ISBN = :isbn")
+    Book findByISBN(String isbn);
 }

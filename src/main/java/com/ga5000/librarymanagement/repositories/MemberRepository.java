@@ -13,4 +13,7 @@ import java.util.UUID;
 public interface MemberRepository extends JpaRepository<Member, UUID> {
     @Query("SELECT t FROM Transaction t WHERE t.member.memberId = :id")
     List<Transaction> findMemberTransactionsById(UUID id);
+
+    @Query("SELECT m FROM Member m WHERE m.memberId = :id")
+    Member findMemberById(UUID id);
 }

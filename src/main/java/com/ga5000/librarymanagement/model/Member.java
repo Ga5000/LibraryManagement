@@ -1,13 +1,15 @@
 package com.ga5000.librarymanagement.model;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "members")
-public class Member {
+public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -38,7 +40,7 @@ public class Member {
     private String membershipStatus;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "userId")
+    @JoinColumn(name = "userId")
     private User user;
 
     @OneToMany(mappedBy = "member")
@@ -141,5 +143,9 @@ public class Member {
 
     public List<Transaction> getTransactions() {
         return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

@@ -2,12 +2,13 @@ package com.ga5000.librarymanagement.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID bookId;

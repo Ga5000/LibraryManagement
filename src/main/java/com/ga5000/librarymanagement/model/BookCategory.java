@@ -2,10 +2,12 @@ package com.ga5000.librarymanagement.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "bookCategories")
 @IdClass(BookCategoryId.class)
-public class BookCategory {
+public class BookCategory implements Serializable {
 
     @Id
     @ManyToOne

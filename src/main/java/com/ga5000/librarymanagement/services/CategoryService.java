@@ -2,6 +2,7 @@ package com.ga5000.librarymanagement.services;
 
 import com.ga5000.librarymanagement.model.Category;
 import com.ga5000.librarymanagement.repositories.CategoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    @Transactional
     public void saveCategory(Category category){
         categoryRepository.save(category);
     }
@@ -27,6 +29,7 @@ public class CategoryService {
         return categoryRepository.findAll(sort);
     }
 
+    @Transactional
     public void deleteCategory(UUID id){
         categoryRepository.deleteById(id);
     }
